@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { agregarCitaAction } from "../actions/citasActions";
+import { validarFormularioAction } from "../actions/validarActions";
 import uuid from 'uuid'
 
 const AgregarCita = () => {
@@ -13,11 +14,23 @@ const AgregarCita = () => {
 
     const dispatch = useDispatch()
     const agregarNuevaCita = cita => dispatch(agregarCitaAction(cita))
+    const validarFormulario = estado => dispatch(validarFormularioAction(estado))
+
+    const error = useSelector(state => state.error)
 
     const submitNuevaCita = e => {
         e.preventDefault()
 
         // validar formulario
+        if (mascota.trim() === '' ||
+            propietario.trim() === '' ||
+            fecha.trim() === '' ||
+            hora.trim() === '' ||
+            sintomas.trim() === '') {
+            validarFormulario(true)
+            return
+        }
+        validarFormulario(false)
 
         // crear la nueva cita
         agregarNuevaCita({
@@ -105,6 +118,7 @@ const AgregarCita = () => {
                         </div>
                     </div>
                 </form>
+                { error.error ? <div className="alert alert-danger text-center p2">Todos los campos son obligatorios</div> : null}
             </div>
         </div>
     )
