@@ -15,7 +15,7 @@ const ListadoCitas = () => {
                 {Object.keys(citas.citas).length !== 0 ?
                     <div className="lista-citas">
                         {citas.citas.map((cita) => (
-                            <div key={cita.uuid} className="media mt-3">
+                            <div key={cita.id} className="media mt-3">
                                 <div className="media-body">
                                     <h3 className="mt-0">{cita.mascota}</h3>
                                     <p className="card-text"><span>Nombre Dueño:</span> {cita.propietario}</p>
