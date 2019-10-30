@@ -1,10 +1,12 @@
 import React from 'react'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { borrarCitaAction } from '../actions/citasActions'
 
 const ListadoCitas = () => {
 
     const citas = useSelector(state => state.citas)
-    const mensaje = Object.keys(citas.citas).length === 0 ? 'No hay citas' : ''
+
+    const dispatch = useDispatch()
 
     return (
         <div className="card mt-5">
@@ -21,7 +23,9 @@ const ListadoCitas = () => {
                                     <p className="card-text"><span>Hora:</span> {cita.hora}</p>
                                     <p className="card-text"><span>Sintomas:</span> {cita.sintomas}<br /></p>
                                     <button 
-                                        className="btn btn-danger">Borrar &times;
+                                        className="btn btn-danger"
+                                        onClick={() => dispatch(borrarCitaAction(cita.id))}
+                                        >Borrar &times;
                                     </button>
                                 </div>
                             </div>
